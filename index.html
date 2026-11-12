@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FRAME ONE</title>
+    <script type="module" crossorigin src="./assets/index-DRIW1Us9.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-OB5bV0Tx.css">
+  </head>
+  <body>
+    <div id="menu" class="menu" data-testid="menu" hidden>
+      <div class="menu-sky" aria-hidden="true"></div>
+      <main class="menu-card">
+        <p class="menu-kicker">A photography game</p>
+        <h1 class="menu-title">FRAME ONE</h1>
+        <div class="menu-choices">
+          <button id="choose-test" class="choice" data-testid="choose-test" type="button">
+            <span class="choice-name">Test</span>
+            <span class="choice-sub">The camera sandbox: every body, lens and dial, the pond, and your own clock in the sky.</span>
+          </button>
+          <button id="choose-cafe" class="choice choice-cafe" data-testid="choose-cafe" type="button">
+            <span class="choice-name">Cafe</span>
+            <span class="choice-sub">Six minutes. Five photographs. One afternoon to remember.</span>
+          </button>
+        </div>
+        <nav class="menu-secondary">
+          <button id="open-settings" class="link-button" type="button" data-testid="open-settings">Settings</button>
+          <span aria-hidden="true">·</span>
+          <button id="open-help" class="link-button" type="button" data-testid="open-help">Help</button>
+        </nav>
+        <p class="menu-foot">Fictional cameras, places and people. Free to play.</p>
+      </main>
+      <dialog id="menu-settings" class="sheet" aria-label="Settings">
+        <form id="settings-form" method="dialog" class="sheet-form">
+          <h2>Settings</h2>
+          <label class="row"><span>Graphics</span>
+            <select id="pref-quality"><option value="high">High</option><option value="low">Low (faster)</option></select>
+          </label>
+          <label class="row"><span>Volume</span><input id="pref-volume" type="range" min="0" max="100" /></label>
+          <label class="row check"><input id="pref-muted" type="checkbox" /> Mute all sound</label>
+          <label class="row check"><input id="pref-motion" type="checkbox" /> Reduced motion (no camera sweeps)</label>
+          <label class="row check"><input id="pref-seated" type="checkbox" /> Seated-only Café (no walking needed)</label>
+          <label class="row check"><input id="pref-subs" type="checkbox" /> Large subtitles</label>
+          <button type="button" class="pill" data-close-dialog>Done</button>
+        </form>
+      </dialog>
+      <dialog id="menu-help" class="sheet" aria-label="Help">
+        <div class="sheet-form">
+          <h2>How to play</h2>
+          <p><b>Test</b> is the open camera sandbox. <b>Cafe</b> is a six-minute date: take photos for five requests, then choose an album to show Eliana. 65% passes.</p>
+          <p><b>Mouse and keyboard:</b> click the picture to look with the mouse · <b>F</b> raise / lower the camera · <b>left click</b> focus · <b>right click</b> or <b>Space</b> take a photo · <b>1–8</b> aperture, shutter, ISO, exposure · <b>L</b> lens · <b>T</b> stand / sit · <b>B</b> album · <b>Esc</b> pause.</p>
+          <p><b>Touch:</b> drag to look, tap to focus, the big round button takes the photo; the left stick walks or leans.</p>
+          <button type="button" class="pill" data-close-dialog>Close</button>
+        </div>
+      </dialog>
+    </div>
+
+    <div id="cafe" class="cafe" data-testid="cafe" hidden></div>
+
+    <div id="app" hidden>
+      <aside class="panel" aria-label="Camera settings">
+        <header>
+          <h1>FRAME ONE</h1>
+          <p class="sub">Camera sandbox · placeholder scene · <a class="menu-link" href="./" data-testid="back-to-menu">Main menu</a></p>
+        </header>
+
+        <section class="world" data-testid="world" aria-label="World time and light">
+          <p id="world-sync" class="world-sync" data-testid="world-sync"></p>
+          <p id="world-clock" class="world-clock" data-testid="world-clock"></p>
+          <p id="world-sky" class="world-sky" data-testid="world-sky"></p>
+          <div class="grid2">
+            <label class="field">
+              <span>Location</span>
+              <select id="map" data-testid="map"></select>
+            </label>
+            <fieldset class="field segmented" data-testid="time-source">
+              <legend>World time</legend>
+              <label><input type="radio" name="time-source" value="device" checked /><span>Your clock</span></label>
+              <label><input type="radio" name="time-source" value="practice" /><span>Practice</span></label>
+            </fieldset>
+          </div>
+          <div id="practice" class="practice" data-testid="practice" hidden>
+            <label class="field">
+              <span>Practice date</span>
+              <input id="practice-date" data-testid="practice-date" type="date" />
+            </label>
+            <label class="field">
+              <span>Practice time (map clock) <output id="practice-time-out" data-testid="practice-time-out"></output></span>
+              <input id="practice-time" data-testid="practice-time" type="range" min="0" max="1439" step="1" />
+            </label>
+          </div>
+        </section>
+
+        <div class="grid2">
+          <label class="field">
+            <span>Camera body</span>
+            <select id="body" data-testid="body"></select>
+          </label>
+          <label class="field">
+            <span>Lens</span>
+            <select id="lens" data-testid="lens"></select>
+          </label>
+        </div>
+
+        <fieldset class="field segmented" data-testid="orientation">
+          <legend>Hold the camera</legend>
+          <label><input type="radio" name="orientation" value="landscape" checked /><span>Horizontal</span></label>
+          <label><input type="radio" name="orientation" value="portrait" /><span>Vertical</span></label>
+        </fieldset>
+
+        <label class="field">
+          <span>Zoom (focal length) <output id="focal-out" data-testid="focal-out"></output></span>
+          <input id="focal" data-testid="focal" type="range" step="1" />
+        </label>
+
+        <div class="grid3">
+          <label class="field">
+            <span>Aperture</span>
+            <select id="aperture" data-testid="aperture"></select>
+          </label>
+          <label class="field">
+            <span>Shutter</span>
+            <select id="shutter" data-testid="shutter"></select>
+          </label>
+          <label class="field">
+            <span>ISO</span>
+            <select id="iso" data-testid="iso"></select>
+          </label>
+        </div>
+
+        <div class="grid2">
+          <label class="field">
+            <span>Exposure mode</span>
+            <select id="exposure-mode" data-testid="exposure-mode">
+              <option value="manual" selected>M · Manual</option>
+              <option value="aperture-priority">A · Aperture priority (auto shutter)</option>
+              <option value="shutter-priority">S · Shutter priority (auto aperture)</option>
+            </select>
+          </label>
+          <label class="check auto-iso"><input id="auto-iso" data-testid="auto-iso" type="checkbox" /> Auto ISO</label>
+        </div>
+        <small class="shortcut-hint">Keys: <b>1 / 2</b> aperture wider / narrower · <b>3 / 4</b> shutter faster / slower · <b>5 / 6</b> ISO down / up</small>
+
+        <div class="meter" data-testid="meter" aria-live="polite">
+          <div class="meter-scale" aria-hidden="true">
+            <span>−3</span><span>−2</span><span>−1</span><span>0</span><span>+1</span><span>+2</span><span>+3</span>
+          </div>
+          <div class="meter-track" aria-hidden="true"><div id="meter-needle" class="meter-needle"></div></div>
+          <p id="meter-text" class="meter-text" data-testid="meter-text"></p>
+        </div>
+
+        <label class="field">
+          <span>Focus distance <output id="focus-out" data-testid="focus-out"></output></span>
+          <input id="focus" data-testid="focus" type="range" min="0" max="1000" step="1" />
+          <small>Or Alt+click anything in the picture to focus on it.</small>
+        </label>
+
+        <div class="grid2">
+          <label class="field">
+            <span>Lens filter</span>
+            <select id="nd" data-testid="nd"></select>
+          </label>
+          <label class="field">
+            <span>Metering</span>
+            <select id="metering" data-testid="metering">
+              <option value="centre-weighted" selected>Centre-weighted</option>
+              <option value="spot">Spot (centre 3%)</option>
+              <option value="incident">Handheld incident</option>
+            </select>
+          </label>
+        </div>
+
+        <button id="shoot" class="shoot" data-testid="shoot" type="button">Take photo</button>
+
+        <p id="notice" class="notice" data-testid="notice" role="status"></p>
+
+        <dl id="readout" class="readout" data-testid="readout"></dl>
+
+        <div class="grid2">
+          <label class="field">
+            <span>Composition guide (G)</span>
+            <select id="guide" data-testid="guide"></select>
+          </label>
+          <label class="check auto-iso"><input id="horizon-toggle" data-testid="horizon-toggle" type="checkbox" /> Horizon line (H)</label>
+        </div>
+        <small id="guide-tip" class="guide-tip" data-testid="guide-tip"></small>
+
+        <fieldset class="field view-toggle">
+          <legend>View</legend>
+          <label><input type="radio" name="view" value="viewfinder" checked /> Viewfinder (this body)</label>
+          <label><input type="radio" name="view" value="framelines" /> Full-frame view + crop frame lines</label>
+        </fieldset>
+
+        <p class="footnote">
+          Blur, exposure and noise are calibrated approximations of a real lens and sensor. Like a real camera, the
+          live view does not show motion blur: it only appears in the photo you take.
+        </p>
+      </aside>
+
+      <main class="stage">
+        <div id="viewfinder" class="viewfinder" data-testid="viewfinder">
+          <canvas id="scene" data-testid="scene" aria-label="Live view. Drag to look around, click to focus."></canvas>
+          <div id="grid" class="grid" data-testid="grid" hidden></div>
+          <div id="overlay" class="overlay"></div>
+          <div id="focus-mark" class="focus-mark" hidden></div>
+          <div id="af-point" class="af-point" data-testid="af-point" hidden></div>
+          <div id="capture-hint" class="capture-hint" data-testid="capture-hint" hidden>
+            Move the mouse to look · <b>Left click</b> focus · <b>Right click</b> photo · <b>F</b> raise / lower camera · <b>Esc</b> free the mouse<br />
+            <b>1 / 2</b> aperture · <b>3 / 4</b> shutter · <b>5 / 6</b> ISO · <b>G</b> composition guide · <b>H</b> horizon
+          </div>
+          <div id="toast" class="toast" data-testid="toast" role="status" hidden></div>
+          <div id="hud" class="hud" data-testid="hud"></div>
+          <div id="exposing" class="exposing" data-testid="exposing" hidden>
+            <span>Shutter open</span>
+            <span id="exposing-countdown" class="exposing-countdown" data-testid="exposing-countdown"></span>
+          </div>
+          <div id="viewer" class="viewer" data-testid="viewer" hidden>
+            <img id="viewer-image" alt="Captured photo" />
+            <div class="viewer-bar">
+              <span id="viewer-caption" data-testid="viewer-caption"></span>
+              <a id="viewer-download" class="button" download>Download PNG</a>
+              <button id="viewer-close" class="button" type="button" data-testid="viewer-close">Back to live view</button>
+            </div>
+          </div>
+        </div>
+        <p class="controls-hint">
+          <b>Click the picture</b> to steer with the mouse (Esc to let go) · <b>W A S D</b> walk (Shift = run) · <b>C</b> crouch · <b>Space</b> jump ·
+          <b>F</b> raise / lower the camera · <b>Q / E</b> camera height · <b>Mouse wheel</b> zoom · <b>Left click</b> focus · <b>Right click</b> photo · <b>1 / 2</b> aperture · <b>3 / 4</b> shutter · <b>5 / 6</b> ISO · <b>G</b> guide · <b>H</b> horizon · <b>R</b> back to start ·
+          Mouse free: <b>drag</b> to look, <b>Alt+click</b> to focus on a point
+        </p>
+        <div id="gallery" class="gallery" data-testid="gallery" aria-label="Photos taken"></div>
+      </main>
+    </div>
+  </body>
+</html>
